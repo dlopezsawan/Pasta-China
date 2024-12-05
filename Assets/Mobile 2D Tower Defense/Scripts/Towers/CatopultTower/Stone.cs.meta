@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5210cd05bcd9fe449bc6069b3e396a31
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Scripts/Towers/CatopultTower/Stone.cs
+  uploadId: 565182

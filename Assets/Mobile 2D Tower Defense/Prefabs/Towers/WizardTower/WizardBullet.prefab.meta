@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d009c164e68d8a74b87f6f1f43e4daa6
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Prefabs/Towers/WizardTower/WizardBullet.prefab
+  uploadId: 565182

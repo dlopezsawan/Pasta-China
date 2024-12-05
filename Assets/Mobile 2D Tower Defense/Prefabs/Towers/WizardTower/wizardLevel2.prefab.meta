@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3d0a3f23ade3d5a4283059db9874115b
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Prefabs/Towers/WizardTower/wizardLevel2.prefab
+  uploadId: 565182

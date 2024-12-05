@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: d76408ad6be63f3459598a7c328d1682
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Scripts/BuildingPlace/TapButton.cs
+  uploadId: 565182

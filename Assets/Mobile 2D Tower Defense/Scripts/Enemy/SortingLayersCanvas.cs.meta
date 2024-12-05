@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 0b55b065436e3f94c952d48e12800dbe
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Scripts/Enemy/SortingLayersCanvas.cs
+  uploadId: 565182

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7cedf799320c11240aececb5ea6fbaf1
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Prefabs/Towers/CatopultTower/catopultLevel3.prefab
+  uploadId: 565182

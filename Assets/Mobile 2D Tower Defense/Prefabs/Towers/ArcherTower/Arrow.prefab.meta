@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c96c221c3c45ca7448e665cbfe8a3f2e
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Prefabs/Towers/ArcherTower/Arrow.prefab
+  uploadId: 565182

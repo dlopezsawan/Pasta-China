@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6fdcbf134a3406342896a7253d93ca6e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Animations/Towers/Wizard/ActiveWizard.controller
+  uploadId: 565182

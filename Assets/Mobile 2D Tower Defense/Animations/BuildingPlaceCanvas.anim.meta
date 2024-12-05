@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fb4d8be6b9af3434da9a4148f0ef15bc
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Animations/BuildingPlaceCanvas.anim
+  uploadId: 565182

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3e77363ce56e8d748a2195a84c12b924
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Prefabs/Towers/CatopultTower/StoneMaterial.mat
+  uploadId: 565182

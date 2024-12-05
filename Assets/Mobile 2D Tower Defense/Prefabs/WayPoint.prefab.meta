@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 84f5fda8a5edea24ea27a03d22c7708e
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Prefabs/WayPoint.prefab
+  uploadId: 565182

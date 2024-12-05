@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7e78b04bbedf5174e9d008f0720b6270
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Animations/Towers/Archer/BowShooted.anim
+  uploadId: 565182

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: af30b8b2188245145a2c45b4ba58e14f
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Prefabs/SpawnPoint.prefab
+  uploadId: 565182

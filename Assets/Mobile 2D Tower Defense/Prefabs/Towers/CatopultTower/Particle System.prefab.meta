@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 058ce7281a01afb408a4eff354bc4bf2
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Prefabs/Towers/CatopultTower/Particle
+    System.prefab
+  uploadId: 565182

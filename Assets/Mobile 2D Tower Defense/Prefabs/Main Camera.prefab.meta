@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5c466e379ec41b3449dd21d32b0a4d9c
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Prefabs/Main Camera.prefab
+  uploadId: 565182

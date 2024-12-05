@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: acd6d46a5ec6ca14ebdc78da240a7f6a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Scripts/Towers/ArcherTower/ArcherTower.cs
+  uploadId: 565182

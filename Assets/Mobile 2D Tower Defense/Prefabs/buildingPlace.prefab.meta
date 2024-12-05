@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7826f69971f85064abae2c1ba51566c8
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Prefabs/buildingPlace.prefab
+  uploadId: 565182

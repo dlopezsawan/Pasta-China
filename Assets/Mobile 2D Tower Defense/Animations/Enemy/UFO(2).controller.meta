@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 832cea3781e796b48bedf05718894ff3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Animations/Enemy/UFO(2).controller
+  uploadId: 565182

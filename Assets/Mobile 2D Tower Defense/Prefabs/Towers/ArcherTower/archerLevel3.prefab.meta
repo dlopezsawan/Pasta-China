@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: cd42ec006208a8c42b5df7b604a0c4c5
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Prefabs/Towers/ArcherTower/archerLevel3.prefab
+  uploadId: 565182
