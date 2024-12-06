@@ -33,11 +33,6 @@ namespace MobileTowerDefense
             ResetButtons();
         }
 
-        void Update()
-        {
-            //
-        }
-
         private void TurnOffCanvas()
         {
             gameObject.SetActive(false);
@@ -45,11 +40,11 @@ namespace MobileTowerDefense
 
         public void BuildButtonFirstClickEvent(int numberOfTower)
         {
-            buildingPlace.spriteRenderer.sprite = buildingPlace.placeForBuildingNotFree;
+            buildingPlace.currentIcon.sprite = buildingPlace.placeForBuildingNotFree;
             buildingDisplays[numberOfTower].SetActive(true);
         }
 
-        public void BuildButtonSecondClickEvent(int numberOfTower)
+        public void BuildButtonSecondClickEvent(int numberOfTower) // Also update upgrade button
         {
             buildingPlace.BuildTheTower(numberOfTower);
 
@@ -81,7 +76,7 @@ namespace MobileTowerDefense
             }
 
             if(buildingPlace.level == buildingPlace.towers[numberOfBuiltTower].levels.Length) {updateButton.SetActive(false);}
-
+            //Make it dynamic
             nextAttackZone = 2;
         }
 

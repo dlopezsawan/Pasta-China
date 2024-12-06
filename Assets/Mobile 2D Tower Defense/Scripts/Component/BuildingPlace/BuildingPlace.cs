@@ -34,23 +34,24 @@ namespace MobileTowerDefense
         public Sprite placeForBuildingNotFree;
 
         private GameManager gameManager;
-        [HideInInspector]public SpriteRenderer spriteRenderer;
+        [HideInInspector]public SpriteRenderer currentIcon;
         public Animator canvasAnimator;
         public BuildingPlaceCanvas buildingPlaceCanvas;
 
         void Start()
         {
             gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            currentIcon = GetComponent<SpriteRenderer>();
 
             childCanvas.SetActive(false);
             checkClicking = false; 
-            spriteRenderer.sprite = placeForBuildingFree;
+            currentIcon.sprite = placeForBuildingFree;
         }
 
-        
+        //Removie this update to optimize make it through Event
         void Update()
         {
+            //Disable button area on click side of building place
             if(checkClicking)
             {
                 if(Input.GetMouseButtonDown(0))
@@ -63,8 +64,8 @@ namespace MobileTowerDefense
                         if(hit.transform.gameObject != gameObject && hit.transform.gameObject.layer != LayerMask.NameToLayer("UI"))
                         {
                             checkClicking = false;
-                            spriteRenderer.sprite = placeForBuildingFree;
-                            canvasAnimator.SetTrigger("CloseCanvas");
+                            currentIcon.sprite = placeForBuildingFree;
+                            canvasAnimator.SetTrigger("CloseCanvas");                       
                         }
                     }
                 }
@@ -81,7 +82,7 @@ namespace MobileTowerDefense
 
         public void BuildTheTower(int numberOfTower)
         { 
-            spriteRenderer.sprite = placeForBuildingNotFree;
+            currentIcon.sprite = placeForBuildingNotFree;
 
             if(gameManager.gold >= towers[numberOfTower].levels[level].cost)
             {
@@ -124,7 +125,7 @@ namespace MobileTowerDefense
             Destroy(builtTower.gameObject);
             level = 0;
             towerWasPlaced = false;
-            spriteRenderer.sprite = placeForBuildingFree;
+            currentIcon.sprite = placeForBuildingFree;
         }
 
         public void ResetThisPlace()
@@ -133,11 +134,11 @@ namespace MobileTowerDefense
             childCanvas.SetActive(false);
             if(towerWasPlaced == true)
             {
-                spriteRenderer.sprite = placeForBuildingNotFree;
+                currentIcon.sprite = placeForBuildingNotFree;
             }
             else
             {
-                spriteRenderer.sprite = placeForBuildingFree;
+                currentIcon.sprite = placeForBuildingFree;
             }
         }
         

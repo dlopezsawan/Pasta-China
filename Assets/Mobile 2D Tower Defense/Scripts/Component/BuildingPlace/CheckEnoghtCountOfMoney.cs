@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Exlude and remove this Class
+
 namespace MobileTowerDefense
 {
     public class CheckEnoghtCountOfMoney : MonoBehaviour

@@ -46,12 +46,12 @@ namespace MobileTowerDefense
                         WaveCompleted();
                     }
                     else
-                    {
-                        return;
+                    {                
+                    return;
                     }
                 }
                 if(waveCountDown <= 0 && nextWave != waves.Length)
-                {
+                {             
                     if(state != SpawnState.spawning)
                     {
                         //Start spawning wave
@@ -65,6 +65,7 @@ namespace MobileTowerDefense
                 }
             }
             
+        //Dynamic way assigning way for diffrent path, If we have two or three or more way we can use this code
             public void WhichWay()
             {
                 for(int i = 0; i < wayPoints.ways.Length; i++)

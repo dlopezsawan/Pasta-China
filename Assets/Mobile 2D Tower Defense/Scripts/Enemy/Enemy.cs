@@ -38,6 +38,7 @@ namespace MobileTowerDefense
                     }
                     else
                     {
+                        //we can use event here instead also
                         gameManager.lives -= 1;
                         Die();
                     }

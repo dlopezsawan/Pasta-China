@@ -27,6 +27,7 @@ namespace MobileTowerDefense
             Vector3 dir = target.position - transform.position;
             float distanceThisFrame = speed * Time.deltaTime;
 
+            //Damage Call from this code // alternative onhittrigger event
             if(dir.magnitude <= distanceThisFrame)
             {
                 HitTarget(target, damage);
