@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1734853448167948682, guid: 38db9b3cd22203947a2a765ca88f8825, type: 3}
@@ -55,6 +56,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4388352332018232565, guid: 38db9b3cd22203947a2a765ca88f8825, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5828967111644562295, guid: 38db9b3cd22203947a2a765ca88f8825, type: 3}
       propertyPath: m_Name
       value: UFO(3)
@@ -68,4 +73,7 @@ PrefabInstance:
       value: 70
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38db9b3cd22203947a2a765ca88f8825, type: 3}

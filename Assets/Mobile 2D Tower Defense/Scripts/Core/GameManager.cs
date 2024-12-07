@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace MobileTowerDefense
@@ -26,60 +28,86 @@ namespace MobileTowerDefense
 
 
         public BuildingPlace[] buildingPlaces;
+        [HideInInspector] public BuildingPlace currentBuildingPlace;
         public WaveSpawner waveSpawnerScript;
-            
-            void Start()
+
+        void Start()
+        {
+            Time.timeScale = 1f;
+            waveSpawnerGameObject.SetActive(false);
+            gameOverMenu.SetActive(false);
+            winnerMenu.SetActive(false);
+
+            DisplayGoldText();
+            DisplayLivesText();
+            UpdateWaveCountText();
+        }
+
+        void Update()
+        {
+            //Check canvas enable or disable
+            if (currentBuildingPlace != null)
             {
-                Time.timeScale = 1f;
-                waveSpawnerGameObject.SetActive(false);
-                gameOverMenu.SetActive(false);
-                winnerMenu.SetActive(false);
+                currentBuildingPlace.ClosedOpenBuildingCanvas();
             }
+        }
 
-            void Update()
+        public void UpdateWaveCountText()
+        {
+            waveCount = "Wave " + (waveSpawnerScript.nextWave + 1) + "/" + waveSpawnerScript.waves.Length;
+            waveCountDisplays.text = waveCount;
+        }
+
+        public void DisplayLivesText()
+        {
+            livesDisplay.text = lives.ToString();
+        }
+
+        public void DisplayGoldText()
+        {
+            goldDisplay.text = gold.ToString();
+        }
+
+        public void OnWinGame()
+        {
+            if (waveSpawnerScript.nextWave == waveSpawnerScript.waves.Length - 1 && win == true)
             {
-                goldDisplay.text = gold.ToString();
-                livesDisplay.text = lives.ToString();
-                waveCount = "Wave " + (waveSpawnerScript.nextWave + 1) + "/" + waveSpawnerScript.waves.Length;
-                waveCountDisplays.text = waveCount;
-
-                if(lives == 0)
+                if (GameObject.FindGameObjectWithTag("Enemy") == null)
                 {
-                    gameOverMenu.SetActive(true);
-                    Time.timeScale = 0f;
-                }
-
-                if(waveSpawnerScript.nextWave == waveSpawnerScript.waves.Length-1 && win == true)
-                {
-                    if (GameObject.FindGameObjectWithTag("Enemy") == null)
-                    {
-                        Invoke("YouWin", 3);
-                    }
+                    Invoke("YouWin", 3);
                 }
             }
-            private void YouWin()
+        }
+
+        public void OnGameOver()
+        {
+            gameOverMenu.SetActive(true);
+            Time.timeScale = 0f;
+        }
+
+        private void YouWin()
             {
                 winnerMenu.SetActive(true);
                 Time.timeScale = 0f;
             }
 
-            public void StartWaveButton()
-            {
-                waveSpawnerGameObject.SetActive(true);
-                startWaveButton.SetActive(false);
-            }
+        public void StartWaveButton()
+        {
+            waveSpawnerGameObject.SetActive(true);
+            startWaveButton.SetActive(false);
+        }
 
-            public void RestartButton()
-            {
-                Application.LoadLevel(Application.loadedLevel);
-            }
+        public void RestartButton()
+        {
+            SceneManager.LoadScene(0);
+        }
 
-            public void ResetBuildingPlaces()
+        public void ResetBuildingPlaces()
+        {
+            foreach (BuildingPlace place in buildingPlaces)
             {
-                foreach(BuildingPlace place in buildingPlaces)
-                {
-                    place.ResetThisPlace();
-                }
+                place.ResetThisPlace();
             }
+        }
     }
 }

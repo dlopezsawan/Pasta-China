@@ -15,7 +15,7 @@ public class SnapshotCamera : MonoBehaviour
 {
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.S))
         { // capture screen shot on left mouse button down
 
             string folderPath = "Assets/Screenshots/"; // the path of your project folder

@@ -40,6 +40,7 @@ namespace MobileTowerDefense
                     {
                         //we can use event here instead also
                         gameManager.lives -= 1;
+                        gameManager.DisplayLivesText();
                         Die();
                     }
                 }

@@ -88,13 +88,16 @@ namespace MobileTowerDefense
                 {
                     //Result after waves
                     Debug.Log("All waves completed!!!");
-                    return;
+                gameManager.win = true;
+                gameManager.OnWinGame();
+                return;
                 }
                 else
                 {
                     nextWave++;
                     nextEnemy = 0;
                     WhichWay();
+                    gameManager.UpdateWaveCountText();
                 }
             }
 

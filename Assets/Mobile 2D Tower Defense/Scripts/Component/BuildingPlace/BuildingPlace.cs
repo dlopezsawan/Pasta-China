@@ -27,7 +27,7 @@ namespace MobileTowerDefense
         [HideInInspector]public GameObject builtTower;
 
         public GameObject childCanvas;
-        private bool checkClicking; 
+        public bool checkClicking; 
         private bool towerWasPlaced = false;
         
         public Sprite placeForBuildingFree;
@@ -48,36 +48,45 @@ namespace MobileTowerDefense
             currentIcon.sprite = placeForBuildingFree;
         }
 
-        //Removie this update to optimize make it through Event
-        void Update()
-        {
+        public void ClosedOpenBuildingCanvas()
+        {      
             //Disable button area on click side of building place
-            if(checkClicking)
+            if (checkClicking)
             {
-                if(Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0))
                 {
                     Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
 
-                    if(hit.transform != null)
-                    {   
-                        if(hit.transform.gameObject != gameObject && hit.transform.gameObject.layer != LayerMask.NameToLayer("UI"))
+                    if (hit.transform != null)
+                    {
+                        if (hit.transform.gameObject != gameObject && hit.transform.gameObject.layer != LayerMask.NameToLayer("UI"))
                         {
                             checkClicking = false;
                             currentIcon.sprite = placeForBuildingFree;
-                            canvasAnimator.SetTrigger("CloseCanvas");                       
+                            canvasAnimator.SetTrigger("CloseCanvas");
                         }
                     }
                 }
             }
         }
-
+   
         private void OnMouseDown()
-        {
+        {          
             gameManager.ResetBuildingPlaces();
             checkClicking = true;
             buildingPlaceCanvas.ResetButtons();
             childCanvas.SetActive(true);
+
+            StartCoroutine(buildingPlaceCanvas.CheckButtonToEnableOrDisable());
+        }
+
+        private void OnMouseExit()
+        {
+            if(buildingPlaceCanvas != null && checkClicking)
+            {
+                gameManager.currentBuildingPlace = buildingPlaceCanvas.buildingPlace;               
+            }          
         }
 
         public void BuildTheTower(int numberOfTower)
@@ -93,15 +102,16 @@ namespace MobileTowerDefense
 
                 GameObject tower = (GameObject)Instantiate(towers[numberOfTower].levels[level].towerPrefab, towers[numberOfTower].buildingSpawnPoint.transform.position, towers[numberOfTower].buildingSpawnPoint.transform.rotation);
                 builtTower = tower;
-
-                level+=1;
             }
         }
 
         public void UpdateTower(int numberOfTower, int levelOfTower)
         {
             if(gameManager.gold >= towers[numberOfTower].levels[levelOfTower].cost)
-            {
+            {              
+
+                buildingPlaceCanvas.ResetCurentButon();
+
                 childCanvas.SetActive(false);
                 checkClicking = false;
                 gameManager.gold -= towers[numberOfTower].levels[levelOfTower].cost;
@@ -110,15 +120,15 @@ namespace MobileTowerDefense
                 GameObject tower = (GameObject)Instantiate(towers[numberOfTower].levels[levelOfTower].towerPrefab, builtTower.transform.position, builtTower.transform.rotation);
                 builtTower = tower;
 
-                level+=1;
+                level++;         
             }
         }
 
         public void DestroyTower(int numberOfTower)
         {
-            int getMoneyback;
-            for(int i = 0; i < level; i++)
+            for(int i = 0; i < level+1; i++)
             {
+                Debug.Log("yess");
                 gameManager.gold += (int)(towers[numberOfTower].levels[i].cost * 0.7f);
             }
             
