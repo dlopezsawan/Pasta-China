@@ -34,7 +34,6 @@ namespace MobileTowerDefense
                 return;
             }
 
-            //Damage Call from this code // alternative onhittrigger event
             if (timePast >= duration)
             {
                 HitTarget(target, damage);

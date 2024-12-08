@@ -50,7 +50,7 @@ namespace MobileTowerDefense
 
         public void ClosedOpenBuildingCanvas()
         {      
-            //Disable button area on click side of building place
+            //Disable button area on click outside side of building place
             if (checkClicking)
             {
                 if (Input.GetMouseButtonDown(0))
@@ -63,6 +63,7 @@ namespace MobileTowerDefense
                         if (hit.transform.gameObject != gameObject && hit.transform.gameObject.layer != LayerMask.NameToLayer("UI"))
                         {
                             checkClicking = false;
+                            gameManager.currentBuildingPlace = null;
                             currentIcon.sprite = placeForBuildingFree;
                             canvasAnimator.SetTrigger("CloseCanvas");
                         }
@@ -72,23 +73,14 @@ namespace MobileTowerDefense
         }
    
         private void OnMouseDown()
-        {          
+        {
             gameManager.ResetBuildingPlaces();
             checkClicking = true;
             buildingPlaceCanvas.ResetButtons();
             childCanvas.SetActive(true);
-
             StartCoroutine(buildingPlaceCanvas.CheckButtonToEnableOrDisable());
         }
-
-        private void OnMouseExit()
-        {
-            if(buildingPlaceCanvas != null && checkClicking)
-            {
-                gameManager.currentBuildingPlace = buildingPlaceCanvas.buildingPlace;               
-            }          
-        }
-
+   
         public void BuildTheTower(int numberOfTower)
         { 
             currentIcon.sprite = placeForBuildingNotFree;
@@ -109,7 +101,6 @@ namespace MobileTowerDefense
         {
             if(gameManager.gold >= towers[numberOfTower].levels[levelOfTower].cost)
             {              
-
                 buildingPlaceCanvas.ResetCurentButon();
 
                 childCanvas.SetActive(false);

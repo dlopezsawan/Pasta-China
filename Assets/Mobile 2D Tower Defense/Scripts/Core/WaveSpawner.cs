@@ -13,7 +13,6 @@ namespace MobileTowerDefense
         {
             public GameObject[] enemyPrefabs;
             public float timeBetweenEnemysSpawn;
-            public Transform spawnPoint;
         }
         public Wave[] waves;
         [HideInInspector]public int nextWave = 0;
@@ -26,14 +25,13 @@ namespace MobileTowerDefense
 
         [HideInInspector]public SpawnState state = SpawnState.counting;
 
-        public WayPoints wayPoints;
+        public PathWay wayPoints;
         private GameManager gameManager;
 
         void Start()
         {
             gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
             waveCountDown = timeBetweenWaves;
-            WhichWay();
             waveCountDown = 0;
         }
 
@@ -65,19 +63,6 @@ namespace MobileTowerDefense
                 }
             }
             
-        //Dynamic way assigning way for diffrent path, If we have two or three or more way we can use this code
-            public void WhichWay()
-            {
-                for(int i = 0; i < wayPoints.ways.Length; i++)
-                {
-                    if(waves[nextWave].spawnPoint == wayPoints.ways[i].spawnPoint)
-                    {
-                        nextWay = i;
-                        break;
-                    }
-                }
-            }
-
             void WaveCompleted()
             {
                 Debug.Log("Wave completed");
@@ -88,20 +73,20 @@ namespace MobileTowerDefense
                 {
                     //Result after waves
                     Debug.Log("All waves completed!!!");
-                gameManager.win = true;
-                gameManager.OnWinGame();
-                return;
+                    gameManager.win = true;
+                    gameManager.OnWinGame();
+                    return;
                 }
                 else
                 {
                     nextWave++;
                     nextEnemy = 0;
-                    WhichWay();
+ 
                     gameManager.UpdateWaveCountText();
                 }
             }
 
-            bool EnemyIsAlive()
+        bool EnemyIsAlive()
             {
                 searchCountdown -= Time.deltaTime;
                 if (searchCountdown <= 0f)
@@ -123,8 +108,10 @@ namespace MobileTowerDefense
                 //spawn
                 for(int i = 0; i < _wave.enemyPrefabs.Length; i++)
                 {
-                    SpawnEnemy(_wave.enemyPrefabs, _wave.spawnPoint);
-                    yield return new WaitForSeconds( _wave.timeBetweenEnemysSpawn );
+                SpawnEnemy(_wave.enemyPrefabs, wayPoints.paths[0].spawnPoint);
+
+                float randVal = Random.Range(0.8f, 2.0f);
+                yield return new WaitForSeconds(randVal); // _wave.timeBetweenEnemysSpawn
                 }
 
                 state = SpawnState.waiting;
@@ -135,14 +122,15 @@ namespace MobileTowerDefense
 
                 yield break;
             }
-            void SpawnEnemy(GameObject[] _enemy, Transform _spawn)
-            {
-                GameObject enemyObject = Instantiate(_enemy[nextEnemy], _spawn.position, _spawn.rotation);
+        void SpawnEnemy(GameObject[] _enemy, Transform _spawn)
+        {
+            GameObject enemyObject = Instantiate(_enemy[nextEnemy], _spawn.position, _spawn.rotation);
 
-                Enemy enemyScript = enemyObject.GetComponent<Enemy>();
-                enemyScript.wayIndex = nextWay;
+            Enemy enemyScript = enemyObject.GetComponent<Enemy>();
+            int randVal = Random.Range(0, 2);
+            enemyScript.wayIndex = randVal;
 
-                nextEnemy++;
-            }
+            nextEnemy++;
+        }
     }
 }

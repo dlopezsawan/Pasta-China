@@ -9,59 +9,60 @@ namespace MobileTowerDefense
     {
         public float startHealth;
         private float health;
-        public Image healthBar;
+        public Image imgHealthBar;
         public int coinsAfterDeath;
 
 
         private GameManager gameManager;
         public float speed;
-        private WayPoints points;
+        private PathWay pathway;
             
         private int wayPointIndex;
         [HideInInspector]public int wayIndex;
-        public GameObject deathObject;
+
+        [SerializeField]GameObject healthBar;
         void Start()
         {
-            points = GameObject.Find("WayPoints").GetComponent<WayPoints>();
+            pathway = GameObject.Find("PathWay").GetComponent<PathWay>();
             gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
             health = startHealth;
         }
 
-            void Update()
+        void Update()
+        {
+            transform.position = Vector2.MoveTowards(transform.position, pathway.paths[0].path.ways[wayIndex].wayPoints[wayPointIndex].position, speed * Time.deltaTime);
+            if (Vector2.Distance(transform.position, pathway.paths[0].path.ways[wayIndex].wayPoints[wayPointIndex].position) < 0.1f)
             {
-                transform.position = Vector2.MoveTowards(transform.position, points.ways[wayIndex].wayPoints[wayPointIndex].position, speed * Time.deltaTime);
-                if(Vector2.Distance(transform.position, points.ways[wayIndex].wayPoints[wayPointIndex].position) < 0.1f)
+                if (wayPointIndex < pathway.paths[0].path.ways[wayIndex].wayPoints.Length - 1)
                 {
-                    if(wayPointIndex < points.ways[wayIndex].wayPoints.Length - 1)
-                    {
-                        wayPointIndex++;
-                    }
-                    else
-                    {
-                        //we can use event here instead also
-                        gameManager.lives -= 1;
-                        gameManager.DisplayLivesText();
-                        Die();
-                    }
+                    wayPointIndex++;
                 }
-            }
-
-            public void TakeDamage(float amount)
-            {
-                health -= amount;
-                healthBar.fillAmount = health / startHealth;
-
-                if(health <= 0)
+                else
                 {
+                    //we can use event here instead also
+                    gameManager.lives -= 1;
+                    gameManager.DisplayLivesText();
                     Die();
                 }
             }
-            void Die()
+        }
+
+        public void TakeDamage(float amount)
+        {
+            health -= amount;
+            imgHealthBar.fillAmount = health / startHealth;
+
+            if (health <= 0)
             {
-                GameObject obj = (GameObject)Instantiate(deathObject, transform.position, transform.rotation);
-                Destroy(obj.gameObject, 1);
-                Destroy(gameObject);
-                gameManager.gold += coinsAfterDeath;
+                Die();
             }
+        }
+        void Die()
+        {
+            Destroy(healthBar);
+            Destroy(gameObject);
+            gameManager.gold += coinsAfterDeath;
+            gameManager.DisplayGoldText();
+        }
     }
 }

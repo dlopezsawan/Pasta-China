@@ -46,7 +46,7 @@ namespace MobileTowerDefense
         void Update()
         {
             //Check canvas enable or disable
-            if (currentBuildingPlace != null)
+            if (currentBuildingPlace!=null)
             {
                 currentBuildingPlace.ClosedOpenBuildingCanvas();
             }

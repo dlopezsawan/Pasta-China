@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BuildButton : Button, IPointerClickHandler, IPointerExitHandler
+public class BuildButton : Button, IPointerClickHandler
 {
     public void OnPointerClick(PointerEventData eventData)
     {

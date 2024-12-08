@@ -48,12 +48,7 @@ namespace MobileTowerDefense
                 btnImage.sprite = buyButtonSelected;
             }
         }
-
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            buildingPlaceCanvas.ResetButtons();
-        }
-
+ 
         private void OnEnable()
         {
             if (btnText == null) { return; }

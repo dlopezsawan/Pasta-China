@@ -28,9 +28,7 @@ namespace MobileTowerDefense
         {
             gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
             buildPanel.SetActive(true);
-            updatePanel.SetActive(false);
-            
-            ResetButtons();
+            updatePanel.SetActive(false);           
         }
 
         private void TurnOffCanvas()
@@ -70,7 +68,6 @@ namespace MobileTowerDefense
 
         public bool CheckIsMoneyEnough()
         {
-            //if(buildingPlace.level >= 2) return true;
             if (gameManager.gold >= buildingPlace.towers[numberOfBuiltTower].levels[buildingPlace.level].cost)
             {            
                 return true;
@@ -144,10 +141,10 @@ namespace MobileTowerDefense
         public IEnumerator CheckButtonToEnableOrDisable()
         {
             yield return new WaitForSeconds(0.2f);
+            gameManager.currentBuildingPlace = buildingPlace;
             foreach (var item in buttonGameObjects)
             {
                 if (item.btnText == null) continue;
-                Debug.Log("yes: " + item.btnText.text);
                 if (gameManager.gold >= int.Parse(item.btnText.text))
                 {
                     item.btnButton.interactable = true;

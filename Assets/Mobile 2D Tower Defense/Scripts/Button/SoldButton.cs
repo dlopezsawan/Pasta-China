@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SoldButton : Button, IPointerClickHandler, IPointerExitHandler
+public class SoldButton : Button, IPointerClickHandler
 {
     public void OnPointerClick(PointerEventData eventData)
     {

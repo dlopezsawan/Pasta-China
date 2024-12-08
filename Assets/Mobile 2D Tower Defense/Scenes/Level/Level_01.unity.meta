@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: f2667705154b80e47b1e635702c4730b
-PrefabImporter:
+guid: a57592ceef9591b41976b6354f8fa7e7
+DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
@@ -10,5 +10,5 @@ AssetOrigin:
   productId: 234588
   packageName: Mobile 2D Tower Defense
   packageVersion: 1.2
-  assetPath: Assets/Mobile 2D Tower Defense/Prefabs/Enemys/DeathEnemyObject.prefab
+  assetPath: Assets/Mobile 2D Tower Defense/Scenes/Demo.unity
   uploadId: 565182
