@@ -54,6 +54,8 @@ namespace MobileTowerDefense
 
             if (health <= 0)
             {
+                Debug.Log("hello");
+                StartCoroutine(gameManager.currentBuildingPlace.buildingPlaceCanvas.CheckButtonToEnableOrDisable());
                 Die();
             }
         }

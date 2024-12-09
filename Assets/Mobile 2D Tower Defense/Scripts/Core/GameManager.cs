@@ -33,6 +33,7 @@ namespace MobileTowerDefense
 
         void Start()
         {
+            Application.targetFrameRate = 60;
             Time.timeScale = 1f;
             waveSpawnerGameObject.SetActive(false);
             gameOverMenu.SetActive(false);
@@ -61,6 +62,10 @@ namespace MobileTowerDefense
         public void DisplayLivesText()
         {
             livesDisplay.text = lives.ToString();
+            if (lives <=0)
+            {
+                OnGameOver();
+            }
         }
 
         public void DisplayGoldText()

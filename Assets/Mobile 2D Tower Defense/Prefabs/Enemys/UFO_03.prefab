@@ -62,11 +62,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5828967111644562295, guid: 38db9b3cd22203947a2a765ca88f8825, type: 3}
       propertyPath: m_Name
-      value: UFO(3)
+      value: UFO_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052747616568892296, guid: 38db9b3cd22203947a2a765ca88f8825, type: 3}
+      propertyPath: speed
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 8052747616568892296, guid: 38db9b3cd22203947a2a765ca88f8825, type: 3}
       propertyPath: startHealth
-      value: 200
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 8052747616568892296, guid: 38db9b3cd22203947a2a765ca88f8825, type: 3}
       propertyPath: coinsAfterDeath

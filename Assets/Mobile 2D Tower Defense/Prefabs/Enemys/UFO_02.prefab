@@ -249,12 +249,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a59c4bc5eda6ea94a9c52bd69e9edab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 150
+  startHealth: 300
   imgHealthBar: {fileID: 7670216138816743304}
-  coinsAfterDeath: 40
-  speed: 0.5
+  coinsAfterDeath: 50
+  speed: 0.6
   wayIndex: 0
-  deathObject: {fileID: 2527090808150668975, guid: f2667705154b80e47b1e635702c4730b, type: 3}
   healthBar: {fileID: 7635938484561217494}
 --- !u!95 &7802624422081184136
 Animator:
