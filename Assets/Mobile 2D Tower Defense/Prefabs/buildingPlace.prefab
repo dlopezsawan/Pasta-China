@@ -403,7 +403,8 @@ GameObject:
   - component: {fileID: 1638969072581803649}
   - component: {fileID: 1638969072581803648}
   - component: {fileID: 1638969072581803651}
-  - component: {fileID: 2100800268592487031}
+  - component: {fileID: 3800680223961639446}
+  - component: {fileID: 333535733217333989}
   m_Layer: 5
   m_Name: ButtonWizard
   m_TagString: Untagged
@@ -513,7 +514,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2100800268592487031
+--- !u!114 &3800680223961639446
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -522,7 +523,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1638969072581803661}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a813bb855e8acaa40aca4bc373dc1cab, type: 3}
+  m_Script: {fileID: 11500000, guid: 2611d4504d3894e479303fc4014e108a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   buildingPlaceCanvas: {fileID: 8157207625391086250}
@@ -559,9 +560,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  btnImage: {fileID: 0}
-  btnButton: {fileID: 0}
+  image: {fileID: 0}
+--- !u!114 &333535733217333989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638969072581803661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246d19fb089aa74459e1a85d9d9547f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  costDisplay: {fileID: 1638969072798439154}
   numberOfTower: 2
+  buildingPlace: {fileID: 1638969073449060541}
 --- !u!1 &1638969072798439167
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,10 +858,9 @@ MonoBehaviour:
   level: 0
   builtTower: {fileID: 0}
   childCanvas: {fileID: 1638969073737895379}
-  checkClicking: 0
   placeForBuildingFree: {fileID: 21300000, guid: 26bf6b0d43cb3934396efd2bfd16187e, type: 3}
   placeForBuildingNotFree: {fileID: 21300000, guid: ce407b153d34b76449f220508493a074, type: 3}
-  currentIcon: {fileID: 0}
+  spriteRenderer: {fileID: 0}
   canvasAnimator: {fileID: 1638969073737895380}
   buildingPlaceCanvas: {fileID: 8157207625391086250}
 --- !u!60 &1638969073449060528
@@ -1100,12 +1113,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonGameObjects:
-  - {fileID: 4752007163886287074}
-  - {fileID: 4860996781380115498}
-  - {fileID: 2100800268592487031}
-  - {fileID: 8471741943312123251}
-  - {fileID: 847773946348253652}
-  buildingTransparentDisplays:
+  - {fileID: 4524115787463176420}
+  - {fileID: 8070162702446512544}
+  - {fileID: 3800680223961639446}
+  - {fileID: 2568198139059064584}
+  - {fileID: 6499812969332189823}
+  buildingDisplays:
   - {fileID: 3911756004707863316}
   - {fileID: 4096810127194315788}
   - {fileID: 3407486393412722528}
@@ -1114,11 +1127,11 @@ MonoBehaviour:
   - {fileID: 1070699153596443937}
   - {fileID: 8042147597707622408}
   selectedButton: {fileID: 0}
-  updateButton: {fileID: 8471741943312123251}
   selectedAtackZone: {fileID: 0}
   buildPanel: {fileID: 1638969073996077986}
   updatePanel: {fileID: 4113911540114106812}
   buildingPlace: {fileID: 1638969073449060541}
+  updateButton: {fileID: 9030982299003614815}
   numberOfBuiltTower: 0
 --- !u!1 &1638969073874634593
 GameObject:
@@ -1283,7 +1296,8 @@ GameObject:
   - component: {fileID: 1638969074212447212}
   - component: {fileID: 1638969074212447215}
   - component: {fileID: 1638969074212447214}
-  - component: {fileID: 4752007163886287074}
+  - component: {fileID: 4524115787463176420}
+  - component: {fileID: 5232811039829968497}
   m_Layer: 5
   m_Name: ButtonArcher
   m_TagString: Untagged
@@ -1393,7 +1407,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4752007163886287074
+--- !u!114 &4524115787463176420
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1402,7 +1416,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1638969074212447211}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a813bb855e8acaa40aca4bc373dc1cab, type: 3}
+  m_Script: {fileID: 11500000, guid: 2611d4504d3894e479303fc4014e108a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   buildingPlaceCanvas: {fileID: 8157207625391086250}
@@ -1439,9 +1453,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  btnImage: {fileID: 0}
-  btnButton: {fileID: 0}
+  image: {fileID: 0}
+--- !u!114 &5232811039829968497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638969074212447211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246d19fb089aa74459e1a85d9d9547f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  costDisplay: {fileID: 1638969074298274523}
   numberOfTower: 0
+  buildingPlace: {fileID: 1638969073449060541}
 --- !u!1 &1638969074269509379
 GameObject:
   m_ObjectHideFlags: 0
@@ -1454,7 +1481,8 @@ GameObject:
   - component: {fileID: 1638969074269509383}
   - component: {fileID: 1638969074269509382}
   - component: {fileID: 1638969074269509377}
-  - component: {fileID: 4860996781380115498}
+  - component: {fileID: 8070162702446512544}
+  - component: {fileID: 1491425503499918641}
   m_Layer: 5
   m_Name: ButtonCatopult
   m_TagString: Untagged
@@ -1564,7 +1592,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4860996781380115498
+--- !u!114 &8070162702446512544
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1573,7 +1601,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1638969074269509379}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a813bb855e8acaa40aca4bc373dc1cab, type: 3}
+  m_Script: {fileID: 11500000, guid: 2611d4504d3894e479303fc4014e108a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   buildingPlaceCanvas: {fileID: 8157207625391086250}
@@ -1610,9 +1638,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  btnImage: {fileID: 0}
-  btnButton: {fileID: 0}
+  image: {fileID: 0}
+--- !u!114 &1491425503499918641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638969074269509379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246d19fb089aa74459e1a85d9d9547f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  costDisplay: {fileID: 1638969072540254302}
   numberOfTower: 1
+  buildingPlace: {fileID: 1638969073449060541}
 --- !u!1 &1638969074298274501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1779,7 +1820,7 @@ GameObject:
   - component: {fileID: 1998996410161726207}
   - component: {fileID: 4708041263816204804}
   - component: {fileID: 4073752053341838716}
-  - component: {fileID: 847773946348253652}
+  - component: {fileID: 6499812969332189823}
   m_Layer: 5
   m_Name: ButtonSold
   m_TagString: Untagged
@@ -1888,7 +1929,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &847773946348253652
+--- !u!114 &6499812969332189823
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1897,7 +1938,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1883927160316693865}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 886c4d2ef66f0fe46a1f62857ef0016d, type: 3}
+  m_Script: {fileID: 11500000, guid: 2611d4504d3894e479303fc4014e108a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   buildingPlaceCanvas: {fileID: 8157207625391086250}
@@ -1922,9 +1963,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  btnImage: {fileID: 0}
-  btnButton: {fileID: 0}
-  numberOfTower: 0
+  image: {fileID: 0}
 --- !u!1 &2429747565711789401
 GameObject:
   m_ObjectHideFlags: 0
@@ -2587,7 +2626,8 @@ GameObject:
   - component: {fileID: 1921287831736751518}
   - component: {fileID: 8401249051009869222}
   - component: {fileID: 6859576818202361176}
-  - component: {fileID: 8471741943312123251}
+  - component: {fileID: 2568198139059064584}
+  - component: {fileID: 8269463534575853582}
   m_Layer: 5
   m_Name: ButtonUpgrade
   m_TagString: Untagged
@@ -2697,7 +2737,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8471741943312123251
+--- !u!114 &2568198139059064584
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2706,7 +2746,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9030982299003614815}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a813bb855e8acaa40aca4bc373dc1cab, type: 3}
+  m_Script: {fileID: 11500000, guid: 2611d4504d3894e479303fc4014e108a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   buildingPlaceCanvas: {fileID: 8157207625391086250}
@@ -2743,6 +2783,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  btnImage: {fileID: 0}
-  btnButton: {fileID: 0}
+  image: {fileID: 0}
+--- !u!114 &8269463534575853582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9030982299003614815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246d19fb089aa74459e1a85d9d9547f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  costDisplay: {fileID: 4848858117961378364}
   numberOfTower: 0
+  buildingPlace: {fileID: 1638969073449060541}

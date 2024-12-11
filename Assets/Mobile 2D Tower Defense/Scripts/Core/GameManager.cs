@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,92 +8,108 @@ namespace MobileTowerDefense
 {
     public class GameManager : MonoBehaviour
     {
-        [Header("UI")]
-        public int gold;
-        public Text goldDisplay;
+        public static GameManager Instance { get; private set; }
 
-        public int lives;
+
+        [Header("UI")]
+        public Text goldDisplay;
+        public Text waveCountDisplays;
         public Text livesDisplay;
 
-        private string waveCount;
-        public Text waveCountDisplays;
+        public int gold;
+        public int lives;
+
+        private int lastGold = -1;
+        private int lastLives = -1;
+        private string lastWaveCount = "";
 
         public GameObject startWaveButton;
         public GameObject gameOverMenu;
         public GameObject winnerMenu;
-        [HideInInspector]public bool win = false;
+        [HideInInspector] public bool win = false;
 
         public GameObject waveSpawnerGameObject;
 
-
         public BuildingPlace[] buildingPlaces;
-        [HideInInspector] public BuildingPlace currentBuildingPlace;
         public WaveSpawner waveSpawnerScript;
 
-        void Start()
+        [SerializeField] GameObject[] PreloadPrefabs;
+        [SerializeField] GameObject PreloadPrefab;
+        private void Awake()
         {
-            Application.targetFrameRate = 60;
+            if (Instance == null)
+                Instance = this;
+            else
+                Destroy(gameObject);
+        }
+
+        void Start()
+        {       
             Time.timeScale = 1f;
             waveSpawnerGameObject.SetActive(false);
             gameOverMenu.SetActive(false);
             winnerMenu.SetActive(false);
 
-            DisplayGoldText();
-            DisplayLivesText();
-            UpdateWaveCountText();
+            ObjectPool.Instance.PreloadObjects(PreloadPrefab,2);
         }
 
         void Update()
         {
-            //Check canvas enable or disable
-            if (currentBuildingPlace!=null)
+            UpdateUI();
+
+            if (lives == 0)
             {
-                currentBuildingPlace.ClosedOpenBuildingCanvas();
+                gameOverMenu.SetActive(true);
+                Time.timeScale = 0f;
+            }
+
+            if (waveSpawnerScript.IsFinalClusterOfWave() && !waveSpawnerScript.EnemyIsAlive())
+            {
+                Invoke("YouWin", 3);
             }
         }
 
-        public void UpdateWaveCountText()
+        private void UpdateUI()
         {
-            waveCount = "Wave " + (waveSpawnerScript.nextWave + 1) + "/" + waveSpawnerScript.waves.Length;
-            waveCountDisplays.text = waveCount;
-        }
-
-        public void DisplayLivesText()
-        {
-            livesDisplay.text = lives.ToString();
-            if (lives <=0)
+            if (gold != lastGold)
             {
-                OnGameOver();
+                goldDisplay.text = gold.ToString();
+                lastGold = gold;
+            }
+
+            if (lives != lastLives)
+            {
+                livesDisplay.text = lives.ToString();
+                lastLives = lives;
+            }
+
+            string currentWaveCount = "Wave " + (waveSpawnerScript.waveCounter + 1) + "/" + waveSpawnerScript.waves.Length;
+            if (currentWaveCount != lastWaveCount)
+            {
+                waveCountDisplays.text = currentWaveCount;
+                lastWaveCount = currentWaveCount;
             }
         }
 
-        public void DisplayGoldText()
+        public void OnCancelAlertButton()
         {
-            goldDisplay.text = gold.ToString();
-        }
-
-        public void OnWinGame()
-        {
-            if (waveSpawnerScript.nextWave == waveSpawnerScript.waves.Length - 1 && win == true)
+            if  (waveSpawnerScript.waveCounter == 0)
             {
-                if (GameObject.FindGameObjectWithTag("Enemy") == null)
-                {
-                    Invoke("YouWin", 3);
-                }
+                StartWaveButton();
             }
-        }
-
-        public void OnGameOver()
-        {
-            gameOverMenu.SetActive(true);
-            Time.timeScale = 0f;
+            else
+            {
+                gold += (int)(15 * waveSpawnerScript.waveCountDown);
+                waveSpawnerScript.waveCountDown = 0;
+            }
+            waveSpawnerScript.alertCanvas.SetActive(false);
         }
 
         private void YouWin()
-            {
-                winnerMenu.SetActive(true);
-                Time.timeScale = 0f;
-            }
+        {
+            winnerMenu.SetActive(true);
+            Time.timeScale = 0f;
+        }
 
         public void StartWaveButton()
         {

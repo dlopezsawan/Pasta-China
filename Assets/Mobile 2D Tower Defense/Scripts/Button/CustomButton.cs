@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 namespace MobileTowerDefense
 {
-    public class TapButton : MonoBehaviour , IPointerClickHandler, IPointerExitHandler
+    public class CustomButton : MonoBehaviour , IPointerClickHandler, IPointerExitHandler
     {
         public BuildingPlaceCanvas buildingPlaceCanvas; // Building Place Canvas script
         [HideInInspector]public bool alreadyClicked = false; 
@@ -18,12 +18,12 @@ namespace MobileTowerDefense
         public UnityEvent secondClickButtonEvent; // Event when second click on the button
 
         [HideInInspector]public Image image; // image of button
-        private UnityEngine.UI.Button button;
+        private Button button;
 
         private void Start()
         {
             image = GetComponent<Image>();
-            button = GetComponent<UnityEngine.UI.Button>();
+            button = GetComponent<Button>();
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -40,7 +40,7 @@ namespace MobileTowerDefense
                 else
                 {
                     alreadyClicked = true;
-                    //buildingPlaceCanvas.selectedButton = gameObject;
+                    buildingPlaceCanvas.selectedButton = gameObject;
 
                     buildingPlaceCanvas.ResetButtons();
                     firstClickButtonEvent.Invoke();

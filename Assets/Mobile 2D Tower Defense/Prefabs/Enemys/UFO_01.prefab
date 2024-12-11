@@ -105,6 +105,7 @@ MonoBehaviour:
   speed: 0.5
   wayIndex: 0
   healthBar: {fileID: 7279275343828769008}
+  customAudio: {fileID: 0}
 --- !u!95 &7559007944003136192
 Animator:
   serializedVersion: 5

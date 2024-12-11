@@ -23,6 +23,7 @@ namespace MobileTowerDefense
         public Transform firepoint;
 
         private Animator catopultAnim;
+        [SerializeField] CustomAudio customAudio;
         void Start()
         {
             catopultAnim = GetComponent<Animator>();
@@ -69,10 +70,12 @@ namespace MobileTowerDefense
         {
             GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firepoint.position, firepoint.rotation);
             Stone bullet = bulletGO.GetComponent<Stone>();
+            customAudio.PlaySound("Action", "CatapultFire");
 
-            if(bullet != null)
+            if (bullet != null)
             {
                 bullet.Seek(target);
+                bullet.customAudio = customAudio;
                 bullet.damage = towerDamage;
             }
         }

@@ -25,7 +25,7 @@ namespace MobileTowerDefense
         public Transform firepoint;
 
         public Animator activeWizardAnim;
-
+        [SerializeField] CustomAudio customAudio;
         void Update()
         {
             UpdateTarget();
@@ -79,8 +79,9 @@ namespace MobileTowerDefense
         {
             GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firepoint.position, firepoint.rotation);
             Bullet bullet = bulletGO.GetComponent<Bullet>();
+            customAudio.PlaySound("Action", "WizardFire");
 
-            if(bullet != null)
+            if (bullet != null)
             {
                 bullet.Seek(target);
                 bullet.damage = towerDamage;

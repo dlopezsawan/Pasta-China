@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace MobileTowerDefense
 {
-    public class CheckEnoghtCountOfMoney : MonoBehaviour
+    public class CheckEnoghMoney : MonoBehaviour
     {
         public Text costDisplay;
         public int numberOfTower;
@@ -13,13 +13,13 @@ namespace MobileTowerDefense
         public BuildingPlace buildingPlace;
         private GameManager gameManager;
         private Image image;
-        private UnityEngine.UI.Button button;
+        private Button button;
 
         void Start()
         {
             gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
             image = GetComponent<Image>();
-            button = GetComponent<UnityEngine.UI.Button>();
+            button = GetComponent<Button>();
         }
 
         void Update()

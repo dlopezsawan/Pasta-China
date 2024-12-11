@@ -39,7 +39,6 @@ namespace MobileTowerDefense
             Quaternion lookRotation  = Quaternion.LookRotation(forward: Vector3.forward, upwards: rotatedVectorDir);
             Quaternion rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed);
             transform.rotation = rotation;
-
         }
 
         void HitTarget(Transform enemy, float hitDamage)

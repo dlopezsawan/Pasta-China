@@ -16,6 +16,7 @@ namespace MobileTowerDefense
         [HideInInspector]public float damage = 0.0f;
 
         public GameObject hitEffect;
+        public CustomAudio customAudio;
 
         public void Seek(Transform _target)
         {
@@ -48,7 +49,7 @@ namespace MobileTowerDefense
             e.TakeDamage(hitDamage);
             GameObject effect = (GameObject)Instantiate(hitEffect, transform.position, transform.rotation);
             Destroy(effect, 1f);
-
+            customAudio.PlaySound("Action", "CatapultHit");
             Destroy(gameObject);
         }
 
