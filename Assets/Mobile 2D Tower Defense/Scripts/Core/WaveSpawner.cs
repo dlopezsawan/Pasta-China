@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace MobileTowerDefense
 {
@@ -11,6 +9,7 @@ namespace MobileTowerDefense
         public class EnemyGroup
         {
             public GameObject[] enemies;
+            public bool hasDialogue;
         }
 
         [System.Serializable]
@@ -18,6 +17,7 @@ namespace MobileTowerDefense
         {
             public EnemyGroup[] EnemyCluster;
             public float timeBetweenEnemysSpawn;
+            public int[] pathIndex;
         }
 
         public enum SpawnState { spawning, waiting, counting };
@@ -25,65 +25,91 @@ namespace MobileTowerDefense
         public Wave[] waves;
         public PathWay wayPoints;
 
-        [SerializeField] public GameObject alertCanvas;
-        public UnityEngine.UI.Image alertFiller;
-
+        public UnityEngine.UI.Image[] alertFillers;
         public float timeBetweenWaves = 5f;
-
         private GameManager gameManager;
 
         [HideInInspector] public SpawnState state = SpawnState.counting;
 
         [HideInInspector] public int waveCounter = 0;
         [HideInInspector] public int clusterCounter = 0;
-        [HideInInspector] public float waveCountDown;
+        [HideInInspector] public float waveCountDown = 0;
         private float searchCountdown = 1f;
 
-        void Start()
+        public GameObject[] enemyPrefabs;
+        public GameObject bossPrefab;
+        public GameObject dialoguePanel;
+        ObjectPool objectPool;
+        private void Start()
         {
-            waveCountDown = timeBetweenWaves;
-            waveCountDown = 0;
+            objectPool = GameObject.Find("ObjectPool").GetComponent<ObjectPool>();
+            foreach (var item in enemyPrefabs)
+            {
+                objectPool.PreloadObjects(item,4);
+            }
+            objectPool.PreloadObjects(bossPrefab, 1);
         }
-
         void Update()
         {
             if (state == SpawnState.waiting)
             {
-                if (clusterCounter == waves[waveCounter].EnemyCluster.Length && waveCounter != waves.Length - 1)
-                {
+                if (IsWaveCompleted())
                     WaveCompleted();
-                }
                 return;
             }
+
             if (waveCountDown <= 0 && waveCounter != waves.Length)
             {
                 if (state != SpawnState.spawning)
                 {
-                    //Start spawning wave
-                    alertCanvas.SetActive(false);
+                    OnEnableAlertCanvas(false);
+                    //Choose Which EnemySpawner is select
                     StartCoroutine(SpawnWave(waves[waveCounter]));
                 }
             }
             else
             {
-                alertFiller.fillAmount = waveCountDown / timeBetweenWaves;
-                waveCountDown -= Time.deltaTime;
+                UpdateWaveCountdown();
             }
+        }
+
+        public void OnEnableAlertCanvas(bool bEnable)
+        {
+            foreach (var index in waves[waveCounter].pathIndex)
+            {
+                alertFillers[index].transform.parent.gameObject.gameObject.SetActive(bEnable); 
+            }
+        }
+
+        private void UpdateWaveCountdown()
+        {
+            waveCountDown -= Time.deltaTime;
+     
+            foreach (var alertfiller in alertFillers)
+            {
+                alertfiller.fillAmount = waveCountDown / timeBetweenWaves;
+            }        
+        }
+
+        private bool IsWaveCompleted()
+        {
+            return clusterCounter >= waves[waveCounter].EnemyCluster.Length &&
+                   waveCounter < waves.Length - 1;
+        }
+
+        private void WaveCompleted()
+        {
+            state = SpawnState.counting;
+            waveCountDown = timeBetweenWaves;
+            clusterCounter = 0;
+            waveCounter++;
+            OnEnableAlertCanvas(true);
         }
 
         public bool IsFinalClusterOfWave()
         {
-            return clusterCounter == waves[waveCounter].EnemyCluster.Length && waveCounter == waves.Length - 1;
-        }
-
-        void WaveCompleted()
-        {
-            state = SpawnState.counting;
-            waveCountDown = timeBetweenWaves;
-
-            waveCounter++;
-            clusterCounter = 0;
-            alertCanvas.SetActive(true);
+            return waveCounter == waves.Length - 1 &&
+                   clusterCounter >= waves[waveCounter].EnemyCluster.Length;
         }
 
         public bool EnemyIsAlive()
@@ -95,27 +121,37 @@ namespace MobileTowerDefense
             return GameObject.FindGameObjectWithTag("Enemy") != null;
         }
 
-        IEnumerator SpawnWave(Wave _wave)
+        private IEnumerator SpawnWave(Wave wave)
         {
             state = SpawnState.spawning;
-            foreach (var cluster in waves[waveCounter].EnemyCluster)
+
+            foreach (var cluster in wave.EnemyCluster)
             {
                 foreach (var enemy in cluster.enemies)
                 {
-                    SpawnEnemy(enemy, wayPoints.paths[0].spawnPoint);
+                    int rand = Random.Range(0, wave.pathIndex.Length);
+                    SpawnEnemy(enemy, wayPoints.paths[wave.pathIndex[rand]].spawnPoint, wave.pathIndex[rand]);
                     yield return new WaitForSeconds(Random.Range(0.8f, 2.0f));
                 }
                 clusterCounter++;
+                if (cluster.hasDialogue)
+                {
+                    dialoguePanel.SetActive(true);
+                }
                 yield return new WaitForSeconds(Random.Range(1.4f, 2.0f));
             }
+
             state = SpawnState.waiting;
         }
 
-        private void SpawnEnemy(GameObject enemyPrefab, Transform spawnPoint)
-        {
-            var enemyObject = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        private void SpawnEnemy(GameObject enemyPrefab, Transform spawnPoint, int pathIndex)
+        {          
+            var enemyObject = objectPool.GetFromPool(enemyPrefab, spawnPoint);
             var enemyScript = enemyObject.GetComponent<Enemy>();
-            enemyScript.wayIndex = Random.Range(0, wayPoints.paths[0].path.ways.Length);
+            enemyScript.enemyPrefab = enemyPrefab;
+            enemyScript.Reset();
+            enemyScript.currentPathIndex = pathIndex;
+            enemyScript.wayIndex = Random.Range(0, wayPoints.paths[pathIndex].path.ways.Length);
         }
     }
 }

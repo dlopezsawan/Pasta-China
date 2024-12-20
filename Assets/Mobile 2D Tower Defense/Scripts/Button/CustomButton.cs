@@ -20,10 +20,13 @@ namespace MobileTowerDefense
         [HideInInspector]public Image image; // image of button
         private Button button;
 
+        AudioManager audioManager;
+
         private void Start()
         {
             image = GetComponent<Image>();
             button = GetComponent<Button>();
+            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -34,14 +37,13 @@ namespace MobileTowerDefense
                 {
                     alreadyClicked = false;
                     buildingPlaceCanvas.selectedButton = null;
-            
                     secondClickButtonEvent.Invoke();
                 }
                 else
                 {
                     alreadyClicked = true;
                     buildingPlaceCanvas.selectedButton = gameObject;
-
+                    if (audioManager != null) { audioManager.PlaySound("UI", "Button_Click", transform.position, false); }
                     buildingPlaceCanvas.ResetButtons();
                     firstClickButtonEvent.Invoke();
                 

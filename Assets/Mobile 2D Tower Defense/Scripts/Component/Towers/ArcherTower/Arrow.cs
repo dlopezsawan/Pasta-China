@@ -11,8 +11,13 @@ namespace MobileTowerDefense
         public float turnSpeed = 10f;
         [HideInInspector]public float damage = 0.0f;
 
-        [HideInInspector] public GameObject prefabReference;
-        public GameObject bulletPrefab;
+        [HideInInspector] public GameObject currentPrefab;
+        [HideInInspector] public GameObject bulletPrefab;
+        ObjectPool objectPool;
+        private void Start()
+        {
+            objectPool = GameObject.Find("ObjectPool").GetComponent<ObjectPool>();
+        }
         public void Seek(Transform _target)
         {
             target = _target;
@@ -22,7 +27,7 @@ namespace MobileTowerDefense
         {
             if(target == null)
             {
-                ObjectPool.Instance.ReturnToPool(bulletPrefab, prefabReference);
+                objectPool.ReturnToPool(bulletPrefab, currentPrefab);
                 return;
             }
 
@@ -49,8 +54,7 @@ namespace MobileTowerDefense
             Enemy e = enemy.GetComponent<Enemy>();
 
             e.TakeDamage(hitDamage);
-          
-            ObjectPool.Instance.ReturnToPool(bulletPrefab, prefabReference);
+            objectPool.ReturnToPool(bulletPrefab, currentPrefab);
         }
     }
 }

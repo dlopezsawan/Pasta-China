@@ -5,13 +5,7 @@ namespace MobileTowerDefense
 {
     public class ObjectPool : MonoBehaviour
     {
-        public static ObjectPool Instance;
         private Dictionary<GameObject, Queue<GameObject>> poolDictionary = new Dictionary<GameObject, Queue<GameObject>>();
-
-        private void Awake()
-        {
-            Instance = this;
-        }
 
         public void PreloadObjects(GameObject prefab, int count)
         {
@@ -34,13 +28,12 @@ namespace MobileTowerDefense
             if (poolDictionary.ContainsKey(prefab) && poolDictionary[prefab].Count > 0)
             {
                 GameObject obj = poolDictionary[prefab].Dequeue();
-                obj.transform.position = transform.position;
-                obj.transform.rotation = transform.rotation;
+                obj.transform.SetLocalPositionAndRotation(transform.position, transform.rotation);               
                 obj.SetActive(true);
                 return obj;
             }
             GameObject newObj = Instantiate(prefab,transform);
-            newObj.transform.parent = transform;
+            newObj.transform.parent = this.transform;
             poolDictionary[prefab].Enqueue(newObj);
             return newObj;
         }

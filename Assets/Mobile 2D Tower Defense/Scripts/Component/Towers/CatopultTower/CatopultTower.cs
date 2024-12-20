@@ -23,9 +23,12 @@ namespace MobileTowerDefense
         public Transform firepoint;
 
         private Animator catopultAnim;
-        [SerializeField] CustomAudio customAudio;
+        AudioManager audioManager;
+        ObjectPool objectPool;
         void Start()
         {
+            objectPool = GameObject.Find("ObjectPool").GetComponent<ObjectPool>();
+            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
             catopultAnim = GetComponent<Animator>();
         }
 
@@ -68,14 +71,15 @@ namespace MobileTowerDefense
 
         public void Shoot()
         {
-            GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firepoint.position, firepoint.rotation);
+            GameObject bulletGO = objectPool.GetFromPool(bulletPrefab, firepoint);
             Stone bullet = bulletGO.GetComponent<Stone>();
-            customAudio.PlaySound("Action", "CatapultFire");
+            if (audioManager != null) {audioManager.PlaySound("Action", "CatapultFire", transform.position, false); }
 
             if (bullet != null)
             {
+                bullet.currentPrefab = bulletGO;
+                bullet.bulletPrefab = bulletPrefab;
                 bullet.Seek(target);
-                bullet.customAudio = customAudio;
                 bullet.damage = towerDamage;
             }
         }

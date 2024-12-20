@@ -25,8 +25,14 @@ namespace MobileTowerDefense
         public Transform firepoint;
 
         public Animator bowAnim;
+        AudioManager audioManager;
+        ObjectPool objectPool;
+        private void Start()
+        {
+            objectPool = GameObject.Find("ObjectPool").GetComponent<ObjectPool>();
+            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        }
 
-        [SerializeField]CustomAudio customAudio;
         void Update()
         {
             UpdateTarget();
@@ -78,15 +84,14 @@ namespace MobileTowerDefense
 
         public void Shoot()
         {
-            GameObject bulletGO = ObjectPool.Instance.GetFromPool(bulletPrefab, firepoint);
+            GameObject bulletGO = objectPool.GetFromPool(bulletPrefab, firepoint);
             Arrow bullet = bulletGO.GetComponent<Arrow>();
-            customAudio.PlaySound("Action", "Bow");
-
-            bullet.prefabReference = bulletGO;
-            bullet.bulletPrefab = bulletPrefab;
+            if (audioManager != null) { audioManager.PlaySound("Action", "Bow", transform.position, false); }
 
             if (bullet != null)
             {
+                bullet.currentPrefab = bulletGO;
+                bullet.bulletPrefab = bulletPrefab;
                 bullet.Seek(target);
                 bullet.damage = towerDamage;
             }

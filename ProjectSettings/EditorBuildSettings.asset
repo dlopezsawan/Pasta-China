@@ -6,6 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Mobile 2D Tower Defense/Scenes/Scenes/MainMenu.unity
+    guid: 721f87eccfcd36942ad3a086568e9b88
+  - enabled: 1
+    path: Assets/Mobile 2D Tower Defense/Scenes/Scenes/Level/Level_01.unity
+    guid: b9db4937b0e0fa34aaf668835d4007f1
+  - enabled: 1
+    path: Assets/Mobile 2D Tower Defense/Scenes/Scenes/Level/Level_02.unity
+    guid: e2b3921d7f68ffe43837049f082e57dc
+  - enabled: 1
+    path: Assets/Mobile 2D Tower Defense/Scenes/Scenes/Level/Level_03.unity
+    guid: ef9840d65389d294f81d32bb39424bb4
+  - enabled: 1
     path: Assets/Mobile 2D Tower Defense/Scenes/Demo.unity
     guid: 95522d12af24cac4d8410fd262965941
   - enabled: 1

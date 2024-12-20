@@ -16,7 +16,16 @@ namespace MobileTowerDefense
         [HideInInspector]public float damage = 0.0f;
 
         public GameObject hitEffect;
-        public CustomAudio customAudio;
+        AudioManager audioManager;
+        ObjectPool objectPool;
+
+        [HideInInspector] public GameObject currentPrefab;
+        [HideInInspector] public GameObject bulletPrefab;
+        private void Start()
+        {
+            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+            objectPool = GameObject.Find("ObjectPool").GetComponent<ObjectPool>();
+        }
 
         public void Seek(Transform _target)
         {
@@ -31,7 +40,7 @@ namespace MobileTowerDefense
         {
             if(target == null)
             {
-                Destroy(gameObject);
+                objectPool.ReturnToPool(bulletPrefab, currentPrefab);
                 return;
             }
 
@@ -45,12 +54,10 @@ namespace MobileTowerDefense
         void HitTarget(Transform enemy, float hitDamage)
         {
             Enemy e = enemy.GetComponent<Enemy>();
-
+            if (audioManager != null) { audioManager.PlaySound("Action", "CatapultHit", transform.position, false); }
+            timePast = 0;
             e.TakeDamage(hitDamage);
-            GameObject effect = (GameObject)Instantiate(hitEffect, transform.position, transform.rotation);
-            Destroy(effect, 1f);
-            customAudio.PlaySound("Action", "CatapultHit");
-            Destroy(gameObject);
+            objectPool.ReturnToPool(bulletPrefab, currentPrefab);
         }
 
         public IEnumerator Curve(Vector3 start, Vector3 finish)

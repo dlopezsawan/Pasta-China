@@ -1,66 +1,69 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MobileTowerDefense
 {
     public class CameraController : MonoBehaviour
     {
-            public float movementTime;
-            
-            [Header("Limits")]
-            public float leftLimit;
-            public float rightLimit;
-            public float bottomLimit;
-            public float upperLimit;
+        public float movementTime;
 
-            private Vector3 dragStartPosition;
-            private Vector3 dragCurrentPosition;
-            private Vector3 newPosition;
+        [Header("Limits")]
+        public float leftLimit;
+        public float rightLimit;
+        public float bottomLimit;
+        public float upperLimit;
 
-            void Start()
+        private Vector3 dragStartPosition;
+        private Vector3 newPosition;
+
+        void Start()
+        {
+            newPosition = transform.position;
+        }
+
+        void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                newPosition = transform.position;
+                dragStartPosition = GetMouseWorldPosition();
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                Vector3 dragCurrentPosition = GetMouseWorldPosition();
+                Vector3 dragDelta = dragStartPosition - dragCurrentPosition;
+                newPosition = transform.position + dragDelta;
             }
 
-            void Update()
-            {
-                
-                if(Input.GetMouseButtonDown(0))
-                {
-                    Plane plane = new Plane(Vector3.forward, Vector3.zero);
+            // Smooth camera movement
+            transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
 
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    float entry;
-                    if(plane.Raycast(ray, out entry))
-                    {
-                        dragStartPosition = ray.GetPoint(entry);
-                    }
-                }
-                else if(Input.GetMouseButton(0))
-                {
-                    Plane plane = new Plane(Vector3.forward, Vector3.zero);
+            // Clamp position to limits
+            ClampPosition();
+        }
 
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    float entry;
-                    if(plane.Raycast(ray, out entry))
-                    {
-                        dragCurrentPosition = ray.GetPoint(entry);
+        private Vector3 GetMouseWorldPosition()
+        {
+            // Convert screen point to world point
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition.z = Mathf.Abs(Camera.main.transform.position.z); // Ensure correct depth
+            return Camera.main.ScreenToWorldPoint(mousePosition);
+        }
 
-                        newPosition = transform.position + dragStartPosition - dragCurrentPosition;
-                    }
-                }
-                transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
-                transform.position = new Vector3(Mathf.Clamp(transform.position.x, leftLimit, rightLimit), Mathf.Clamp(transform.position.y, bottomLimit, upperLimit), transform.position.z);
-            }
+        private void ClampPosition()
+        {
+            transform.position = new Vector3(
+                Mathf.Clamp(transform.position.x, leftLimit, rightLimit),
+                Mathf.Clamp(transform.position.y, bottomLimit, upperLimit),
+                transform.position.z
+            );
+        }
 
-            private void OnDrawGizmosSelected()
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawLine(new Vector2(leftLimit, upperLimit), new Vector2(rightLimit, upperLimit));
-                Gizmos.DrawLine(new Vector2(leftLimit, bottomLimit), new Vector2(rightLimit, bottomLimit));
-                Gizmos.DrawLine(new Vector2(leftLimit, upperLimit), new Vector2(leftLimit, bottomLimit));
-                Gizmos.DrawLine(new Vector2(rightLimit, upperLimit), new Vector2(rightLimit, bottomLimit));
-            }
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(new Vector3(leftLimit, upperLimit, 0), new Vector3(rightLimit, upperLimit, 0));
+            Gizmos.DrawLine(new Vector3(leftLimit, bottomLimit, 0), new Vector3(rightLimit, bottomLimit, 0));
+            Gizmos.DrawLine(new Vector3(leftLimit, upperLimit, 0), new Vector3(leftLimit, bottomLimit, 0));
+            Gizmos.DrawLine(new Vector3(rightLimit, upperLimit, 0), new Vector3(rightLimit, bottomLimit, 0));
+        }
     }
 }

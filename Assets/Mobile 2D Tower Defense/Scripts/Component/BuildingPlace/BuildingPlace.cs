@@ -37,10 +37,11 @@ namespace MobileTowerDefense
         [HideInInspector] public SpriteRenderer spriteRenderer;
         public Animator canvasAnimator;
         public BuildingPlaceCanvas buildingPlaceCanvas;
-
+        AudioManager audioManager;
         void Start()
         {
-            gameManager = GameManager.Instance;
+            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+            gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
             spriteRenderer = GetComponent<SpriteRenderer>();
 
             childCanvas.SetActive(false);
@@ -74,6 +75,7 @@ namespace MobileTowerDefense
 
         private void OnMouseDown()
         {
+            if (audioManager != null) { audioManager.PlaySound("UI", "Canvas_Click", transform.position, false); }         
             gameManager.ResetBuildingPlaces();
             checkClicking = true;
             buildingPlaceCanvas.ResetButtons();
@@ -86,6 +88,8 @@ namespace MobileTowerDefense
 
             if (gameManager.gold >= towers[numberOfTower].levels[level].cost)
             {
+                if (audioManager != null) { audioManager.PlaySound("UI", "Ok_Click", transform.position, false); }
+              
                 childCanvas.SetActive(false);
                 checkClicking = false;
                 towerWasPlaced = true;
@@ -102,6 +106,7 @@ namespace MobileTowerDefense
         {
             if (gameManager.gold >= towers[numberOfTower].levels[levelOfTower].cost)
             {
+                if (audioManager != null) { audioManager.PlaySound("UI", "Level_Up", transform.position, false); }
                 childCanvas.SetActive(false);
                 checkClicking = false;
                 gameManager.gold -= towers[numberOfTower].levels[levelOfTower].cost;

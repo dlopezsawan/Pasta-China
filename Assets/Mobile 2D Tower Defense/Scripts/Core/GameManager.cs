@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,9 +6,6 @@ namespace MobileTowerDefense
 {
     public class GameManager : MonoBehaviour
     {
-        public static GameManager Instance { get; private set; }
-
-
         [Header("UI")]
         public Text goldDisplay;
         public Text waveCountDisplays;
@@ -23,7 +18,6 @@ namespace MobileTowerDefense
         private int lastLives = -1;
         private string lastWaveCount = "";
 
-        public GameObject startWaveButton;
         public GameObject gameOverMenu;
         public GameObject winnerMenu;
         [HideInInspector] public bool win = false;
@@ -35,12 +29,14 @@ namespace MobileTowerDefense
 
         [SerializeField] GameObject[] PreloadPrefabs;
         [SerializeField] GameObject PreloadPrefab;
+        AudioManager audioManager;
+        ObjectPool objectPool;
+
+        [SerializeField] GameObject characterDialogue;
         private void Awake()
         {
-            if (Instance == null)
-                Instance = this;
-            else
-                Destroy(gameObject);
+            objectPool = GameObject.Find("ObjectPool").GetComponent<ObjectPool>();
+            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         }
 
         void Start()
@@ -50,7 +46,12 @@ namespace MobileTowerDefense
             gameOverMenu.SetActive(false);
             winnerMenu.SetActive(false);
 
-            ObjectPool.Instance.PreloadObjects(PreloadPrefab,2);
+            if (audioManager != null) { audioManager.PlaySound("Ambient", "Ambient_jungle", transform.position, true); }
+
+            foreach (var item in PreloadPrefabs)
+            {
+                objectPool.PreloadObjects(item, 2);
+            }
         }
 
         void Update()
@@ -65,7 +66,17 @@ namespace MobileTowerDefense
 
             if (waveSpawnerScript.IsFinalClusterOfWave() && !waveSpawnerScript.EnemyIsAlive())
             {
-                Invoke("YouWin", 3);
+
+                characterDialogue.SetActive(true);
+                //int currentLevel = GlobalData.Instance.levelCounter++;
+                //if (currentLevel <=3) {
+                //    SceneManager.LoadSceneAsync(currentLevel);
+                //}
+                //else
+                //{
+                //    characterDialogue.SetActive(true);
+
+                //}
             }
         }
 
@@ -95,6 +106,7 @@ namespace MobileTowerDefense
         {
             if  (waveSpawnerScript.waveCounter == 0)
             {
+                if (audioManager != null) { audioManager.PlaySound("Music", "Music", transform.position, true); }
                 StartWaveButton();
             }
             else
@@ -102,7 +114,8 @@ namespace MobileTowerDefense
                 gold += (int)(15 * waveSpawnerScript.waveCountDown);
                 waveSpawnerScript.waveCountDown = 0;
             }
-            waveSpawnerScript.alertCanvas.SetActive(false);
+
+            waveSpawnerScript.OnEnableAlertCanvas(false);
         }
 
         private void YouWin()
@@ -114,7 +127,6 @@ namespace MobileTowerDefense
         public void StartWaveButton()
         {
             waveSpawnerGameObject.SetActive(true);
-            startWaveButton.SetActive(false);
         }
 
         public void RestartButton()

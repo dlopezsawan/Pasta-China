@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-using static Path;
 
 namespace MobileTowerDefense
 {
@@ -21,30 +17,36 @@ namespace MobileTowerDefense
         private int wayPointIndex;
         [HideInInspector]public int wayIndex;
 
-        [SerializeField]GameObject healthBar;
+        [SerializeField] GameObject healthBar;
+        AudioManager audioManager;
+        ObjectPool objectPool;
 
+        [HideInInspector] public GameObject enemyPrefab;
+
+        public int currentPathIndex;
         void Start()
         {
-            gameManager = GameManager.Instance;
+            gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+            objectPool = GameObject.Find("ObjectPool").GetComponent<ObjectPool>();
+            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
             pathway = GameObject.Find("PathWay").GetComponent<PathWay>();
             currentHealth = startHealth;
         }
 
         void Update()
         {
-            var target = pathway.paths[0].path.ways[wayIndex].wayPoints[wayPointIndex];
+            var target = pathway.paths[currentPathIndex].path.ways[wayIndex].wayPoints[wayPointIndex];
             transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
 
             if (Vector2.Distance(transform.position, target.position) < 0.1f)
             {
-                if (wayPointIndex < pathway.paths[0].path.ways[wayIndex].wayPoints.Length - 1)
+                if (wayPointIndex < pathway.paths[currentPathIndex].path.ways[wayIndex].wayPoints.Length - 1)
                 {
                     wayPointIndex++;
                 }
                 else
                 {
                     gameManager.lives--;
-                    //gameManager.
                     Die();
                 }
             }
@@ -60,11 +62,21 @@ namespace MobileTowerDefense
                 Die();
             }
         }
+
         void Die()
         {
-            Destroy(healthBar);
-            Destroy(gameObject, 0.2f);
+            if (audioManager != null) { audioManager.PlaySound("Action", "EnemyDeath", transform.position, false); }
+            objectPool.ReturnToPool(enemyPrefab, gameObject);
+            healthBar.SetActive(false);
             gameManager.gold += coinsAfterDeath;
+        }
+
+        public void Reset()
+        {
+            healthBar.SetActive(true);
+            wayPointIndex = 0;
+            currentHealth = startHealth;
+            imgHealthBar.fillAmount = 1;
         }
     }
 }
